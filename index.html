@@ -53,16 +53,17 @@
             font-size: 20px;
             margin: 0 0 25px 0;
         }
-        .hero a.btn {
+        .hero button.btn {
             background-color: #0077b6;
             color: white;
             padding: 14px 30px;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
             border-radius: 5px;
             font-size: 16px;
         }
-        .hero a.btn:hover {
+        .hero button.btn:hover {
             background-color: #005f8a;
         }
         h2 {
@@ -74,6 +75,71 @@
         }
         li {
             margin-bottom: 8px;
+        }
+
+        /* Modal (buyurtma oynasi) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .modal-box h3 {
+            margin-top: 0;
+            color: #0077b6;
+        }
+        .modal-box label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .modal-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        #sendBtn {
+            background-color: #0077b6;
+            color: white;
+        }
+        #cancelBtn {
+            background-color: #ddd;
+            color: #333;
+        }
+        #statusMsg {
+            margin-top: 15px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -91,7 +157,7 @@
     <div class="hero">
         <h1>Tozalik va Ishonch</h1>
         <p>Gilam, fasad, bruschatka va mebel yuvish bo'yicha professional xizmatlar</p>
-        <a href="aloqa.html" class="btn">Buyurtma berish</a>
+        <button class="btn" onclick="openModal()">Buyurtma berish</button>
     </div>
 
     <h2>Bizning xizmatlarimiz</h2>
@@ -104,5 +170,93 @@
 
     <h2>Biz bilan bog'laning</h2>
     <p>Telefon: +998 88 010 10 11</p>
+    <br>
+
+    <!-- Buyurtma oynasi (modal) -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <h3>Buyurtma berish</h3>
+
+            <label for="fullName">Ismingiz</label>
+            <input type="text" id="fullName" placeholder="Ismingizni kiriting">
+
+            <label for="phone">Telefon raqamingiz</label>
+            <input type="text" id="phone" placeholder="+998 XX XXX XX XX">
+
+            <label for="altPhone">Zahira telefon raqamingiz (ixtiyoriy)</label>
+            <input type="text" id="altPhone" placeholder="+998 XX XXX XX XX">
+
+            <div class="modal-buttons">
+                <button id="cancelBtn" onclick="closeModal()">Bekor qilish</button>
+                <button id="sendBtn" onclick="sendOrder()">Yuborish</button>
+            </div>
+
+            <div id="statusMsg"></div>
+        </div>
+    </div>
+
+    <script>
+        // === O'ZINGIZNING MA'LUMOTLARINGIZNI SHU YERGA YOZING ===
+        const BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
+        const CHAT_ID = "6346184642";
+        // ==========================================================
+
+        function openModal() {
+            document.getElementById('orderModal').classList.add('active');
+            document.getElementById('statusMsg').textContent = '';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('active');
+        }
+
+        function sendOrder() {
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const altPhone = document.getElementById('altPhone').value.trim();
+            const statusMsg = document.getElementById('statusMsg');
+
+            if (!name || !phone) {
+                statusMsg.style.color = 'red';
+                statusMsg.textContent = "Iltimos, ism va telefon raqamni kiriting!";
+                return;
+            }
+
+            let text = `🆕 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}`;
+            if (altPhone) {
+                text += `\n📞 Zahira telefon: ${altPhone}`;
+            }
+
+            statusMsg.style.color = '#333';
+            statusMsg.textContent = "Yuborilmoqda...";
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: text
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    statusMsg.style.color = 'green';
+                    statusMsg.textContent = "Buyurtma yuborildi! Rahmat.";
+                    document.getElementById('fullName').value = '';
+                    document.getElementById('phone').value = '';
+                    document.getElementById('altPhone').value = '';
+                    setTimeout(closeModal, 2000);
+                } else {
+                    statusMsg.style.color = 'red';
+                    statusMsg.textContent = "Xatolik yuz berdi. Qayta urinib ko'ring.";
+                }
+            })
+            .catch(error => {
+                statusMsg.style.color = 'red';
+                statusMsg.textContent = "Xatolik yuz berdi. Internetni tekshiring.";
+            });
+        }
+    </script>
 </body>
 </html>
