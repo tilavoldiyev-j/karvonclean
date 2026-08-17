@@ -3,61 +3,97 @@
 <head>
     <title>Xizmatlar - Karvonclean</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
-        h1 {
-            background-color: #0077b6;
-            color: white;
-            padding: 20px;
-            margin: 0;
-        }
         nav {
-            background-color: #005f8a;
-            padding: 10px 20px;
+            background-color: #003d5c;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin-right: 20px;
+            margin-left: 25px;
             font-weight: bold;
         }
         nav a:hover {
-            text-decoration: underline;
+            color: #7ec8e3;
         }
-        h2 {
+        .page-header {
+            background-color: #0077b6;
+            color: white;
+            padding: 50px 40px;
+        }
+        .page-header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .service-box {
+            background: white;
+            margin: 20px 40px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .service-box h2 {
             color: #0077b6;
-            padding: 20px 20px 0 20px;
+            margin-top: 0;
         }
-        p {
-            padding: 0 20px;
+        .service-box p {
+            margin-bottom: 0;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Karvonclean</h1>
     <nav>
-        <a href="index.html">Bosh sahifa</a>
-        <a href="xizmatlar.html">Xizmatlar</a>
-        <a href="biz-haqimizda.html">Biz haqimizda</a>
-        <a href="aloqa.html">Aloqa</a>
+        <div class="logo">Karvonclean</div>
+        <div>
+            <a href="index.html">Bosh sahifa</a>
+            <a href="xizmatlar.html">Xizmatlar</a>
+            <a href="biz-haqimizda.html">Biz haqimizda</a>
+            <a href="aloqa.html">Aloqa</a>
+        </div>
     </nav>
 
-    <h2>Bizning xizmatlarimiz</h2>
+    <div class="page-header">
+        <h1>Bizning xizmatlarimiz</h1>
+    </div>
 
-    <h2>Gilam yuvish</h2>
-    <p>Uy va ofis gilamlarini chuqur tozalash, dog' va changdan xalos qilish xizmati.</p>
+    <div class="service-box">
+        <h2>Gilam yuvish</h2>
+        <p>Uy va ofis gilamlarini chuqur tozalash, dog' va changdan xalos qilish xizmati.</p>
+    </div>
 
-    <h2>Fasad yuvish</h2>
-    <p>Bino tashqi devorlarini professional uskunalar bilan tozalash.</p>
+    <div class="service-box">
+        <h2>Fasad yuvish</h2>
+        <p>Bino tashqi devorlarini professional uskunalar bilan tozalash.</p>
+    </div>
 
-    <h2>Bruschatka yuvish</h2>
-    <p>Hovli va yo'lak plitalarini yuqori bosimli suv bilan tozalash.</p>
+    <div class="service-box">
+        <h2>Bruschatka yuvish</h2>
+        <p>Hovli va yo'lak plitalarini yuqori bosimli suv bilan tozalash.</p>
+    </div>
 
-    <h2>Mebel yuvish</h2>
-    <p>Divan, kreslo va boshqa mebellarni chuqur tozalash xizmati.</p>
+    <div class="service-box">
+        <h2>Mebel yuvish</h2>
+        <p>Divan, kreslo va boshqa mebellarni chuqur tozalash xizmati.</p>
+    </div>
+
+    <br>
 </body>
 </html>
