@@ -33,27 +33,46 @@
         nav a:hover {
             color: #7ec8e3;
         }
-        .hero {
-            background-image: linear-gradient(rgba(0,30,50,0.55), rgba(0,30,50,0.55)), url('hero.webp');
+
+        .hero-slider {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            color: white;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0,30,50,0.55), rgba(0,30,50,0.55)), var(--bg-img);
             background-size: cover;
             background-position: center;
-            height: 500px;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
             padding: 0 60px;
-            color: white;
         }
-        .hero h1 {
+        .hero-content h1 {
             font-size: 48px;
             margin: 0 0 15px 0;
         }
-        .hero p {
+        .hero-content p {
             font-size: 20px;
             margin: 0 0 25px 0;
         }
-        .hero button.btn {
+        .hero-content button.btn {
             background-color: #0077b6;
             color: white;
             padding: 14px 30px;
@@ -63,9 +82,10 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        .hero button.btn:hover {
+        .hero-content button.btn:hover {
             background-color: #005f8a;
         }
+
         h2 {
             color: #0077b6;
             padding: 40px 40px 0 40px;
@@ -175,10 +195,14 @@
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>Tozalik va Ishonch</h1>
-        <p>Gilam, fasad, bruschatka va mebel yuvish bo'yicha professional xizmatlar</p>
-        <button class="btn" onclick="openModal()">Buyurtma berish</button>
+    <div class="hero-slider">
+        <div class="hero-slide active" style="--bg-img: url('hero.webp');"></div>
+        <div class="hero-slide" style="--bg-img: url('hero2.webp');"></div>
+        <div class="hero-content">
+            <h1>Tozalik va Ishonch</h1>
+            <p>Gilam, fasad, bruschatka va mebel yuvish bo'yicha professional xizmatlar</p>
+            <button class="btn" onclick="openModal()">Buyurtma berish</button>
+        </div>
     </div>
 
     <h2>Bizning xizmatlarimiz</h2>
@@ -225,7 +249,7 @@
     <script>
         // === O'ZINGIZNING MA'LUMOTLARINGIZNI SHU YERGA YOZING ===
         const BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
-        const CHAT_IDS = ["558695914", "6346184642"];
+        const CHAT_IDS = ["6346184642", "558695914"];
         // ==========================================================
 
         function openModal() {
@@ -291,6 +315,15 @@
                     statusMsg.textContent = "Xatolik yuz berdi. Internetni tekshiring.";
                 });
         }
+
+        // Hero rasm slayderi
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000);
     </script>
 </body>
 </html>
