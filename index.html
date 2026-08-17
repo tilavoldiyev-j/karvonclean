@@ -3,37 +3,74 @@
 <head>
     <title>Karvonclean - Professional tozalash xizmatlari</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
-        h1 {
-            background-color: #0077b6;
-            color: white;
-            padding: 20px;
-            margin: 0;
-        }
         nav {
-            background-color: #005f8a;
-            padding: 10px 20px;
+            background-color: #003d5c;
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin-right: 20px;
+            margin-left: 25px;
             font-weight: bold;
         }
         nav a:hover {
-            text-decoration: underline;
+            color: #7ec8e3;
+        }
+        .hero {
+            background-image: linear-gradient(rgba(0,30,50,0.55), rgba(0,30,50,0.55)), url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 60px;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0 0 15px 0;
+        }
+        .hero p {
+            font-size: 20px;
+            margin: 0 0 25px 0;
+        }
+        .hero a.btn {
+            background-color: #0077b6;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .hero a.btn:hover {
+            background-color: #005f8a;
         }
         h2 {
             color: #0077b6;
-            padding: 20px 20px 0 20px;
+            padding: 40px 40px 0 40px;
         }
         p, ul {
-            padding: 0 20px;
+            padding: 0 40px;
         }
         li {
             margin-bottom: 8px;
@@ -41,15 +78,21 @@
     </style>
 </head>
 <body>
-    <h1>Karvonclean</h1>
     <nav>
-        <a href="index.html">Bosh sahifa</a>
-        <a href="xizmatlar.html">Xizmatlar</a>
-        <a href="biz-haqimizda.html">Biz haqimizda</a>
-        <a href="aloqa.html">Aloqa</a>
+        <div class="logo">Karvonclean</div>
+        <div>
+            <a href="index.html">Bosh sahifa</a>
+            <a href="xizmatlar.html">Xizmatlar</a>
+            <a href="biz-haqimizda.html">Biz haqimizda</a>
+            <a href="aloqa.html">Aloqa</a>
+        </div>
     </nav>
 
-    <p>Sizning uyingiz va biznesingiz uchun professional tozalash xizmatlari</p>
+    <div class="hero">
+        <h1>Tozalik va Ishonch</h1>
+        <p>Gilam, fasad, bruschatka va mebel yuvish bo'yicha professional xizmatlar</p>
+        <a href="aloqa.html" class="btn">Buyurtma berish</a>
+    </div>
 
     <h2>Bizning xizmatlarimiz</h2>
     <ul>
