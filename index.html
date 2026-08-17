@@ -115,6 +115,27 @@
             border-radius: 5px;
             font-size: 15px;
         }
+        .phone-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .phone-input .prefix {
+            background: #eee;
+            padding: 10px 8px;
+            font-weight: bold;
+            color: #333;
+            border-right: 1px solid #ccc;
+        }
+        .phone-input input {
+            border: none;
+            border-radius: 0;
+        }
+        .phone-input input:focus {
+            outline: none;
+        }
         .modal-buttons {
             margin-top: 20px;
             display: flex;
@@ -181,10 +202,16 @@
             <input type="text" id="fullName" placeholder="Ismingizni kiriting">
 
             <label for="phone">Telefon raqamingiz</label>
-            <input type="text" id="phone" placeholder="+998 XX XXX XX XX">
+            <div class="phone-input">
+                <span class="prefix">+998</span>
+                <input type="text" id="phone" placeholder="XX XXX XX XX" maxlength="9">
+            </div>
 
             <label for="altPhone">Zahira telefon raqamingiz (ixtiyoriy)</label>
-            <input type="text" id="altPhone" placeholder="+998 XX XXX XX XX">
+            <div class="phone-input">
+                <span class="prefix">+998</span>
+                <input type="text" id="altPhone" placeholder="XX XXX XX XX" maxlength="9">
+            </div>
 
             <div class="modal-buttons">
                 <button id="cancelBtn" onclick="closeModal()">Bekor qilish</button>
@@ -212,15 +239,18 @@
 
         function sendOrder() {
             const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const altPhone = document.getElementById('altPhone').value.trim();
+            const phoneRaw = document.getElementById('phone').value.trim();
+            const altPhoneRaw = document.getElementById('altPhone').value.trim();
             const statusMsg = document.getElementById('statusMsg');
 
-            if (!name || !phone) {
+            if (!name || !phoneRaw) {
                 statusMsg.style.color = 'red';
                 statusMsg.textContent = "Iltimos, ism va telefon raqamni kiriting!";
                 return;
             }
+
+            const phone = "+998" + phoneRaw;
+            const altPhone = altPhoneRaw ? "+998" + altPhoneRaw : "";
 
             let text = `🆕 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}`;
             if (altPhone) {
