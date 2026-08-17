@@ -225,7 +225,7 @@
     <script>
         // === O'ZINGIZNING MA'LUMOTLARINGIZNI SHU YERGA YOZING ===
         const BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
-        const CHAT_ID = "6346184642";
+        const CHAT_IDS = ["6346184642", "558695914"];
         // ==========================================================
 
         function openModal() {
@@ -260,32 +260,36 @@
             statusMsg.style.color = '#333';
             statusMsg.textContent = "Yuborilmoqda...";
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: text
+            const sendPromises = CHAT_IDS.map(id =>
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: id,
+                        text: text
+                    })
+                }).then(response => response.json())
+            );
+
+            Promise.all(sendPromises)
+                .then(results => {
+                    const allOk = results.every(r => r.ok);
+                    if (allOk) {
+                        statusMsg.style.color = 'green';
+                        statusMsg.textContent = "Buyurtma yuborildi! Rahmat.";
+                        document.getElementById('fullName').value = '';
+                        document.getElementById('phone').value = '';
+                        document.getElementById('altPhone').value = '';
+                        setTimeout(closeModal, 2000);
+                    } else {
+                        statusMsg.style.color = 'red';
+                        statusMsg.textContent = "Qisman xatolik yuz berdi. Qayta urinib ko'ring.";
+                    }
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    statusMsg.style.color = 'green';
-                    statusMsg.textContent = "Buyurtma yuborildi! Rahmat.";
-                    document.getElementById('fullName').value = '';
-                    document.getElementById('phone').value = '';
-                    document.getElementById('altPhone').value = '';
-                    setTimeout(closeModal, 2000);
-                } else {
+                .catch(error => {
                     statusMsg.style.color = 'red';
-                    statusMsg.textContent = "Xatolik yuz berdi. Qayta urinib ko'ring.";
-                }
-            })
-            .catch(error => {
-                statusMsg.style.color = 'red';
-                statusMsg.textContent = "Xatolik yuz berdi. Internetni tekshiring.";
-            });
+                    statusMsg.textContent = "Xatolik yuz berdi. Internetni tekshiring.";
+                });
         }
     </script>
 </body>
