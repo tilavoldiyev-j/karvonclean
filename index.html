@@ -33,6 +33,35 @@
         nav a:hover {
             color: #7ec8e3;
         }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        @media (max-width: 700px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav {
+                flex-wrap: wrap;
+            }
+            nav .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 15px;
+            }
+            nav .nav-links.open {
+                display: flex;
+            }
+            nav a {
+                margin: 8px 0;
+                margin-left: 0;
+            }
+        }
 
         .hero-slider {
             position: relative;
@@ -187,7 +216,8 @@
 <body>
     <nav>
         <div class="logo">Karvonclean</div>
-        <div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Bosh sahifa</a>
             <a href="xizmatlar.html">Xizmatlar</a>
             <a href="biz-haqimizda.html">Biz haqimizda</a>
@@ -247,9 +277,13 @@
     </div>
 
     <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
         // === O'ZINGIZNING MA'LUMOTLARINGIZNI SHU YERGA YOZING ===
         const BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
-        const CHAT_IDS = ["6346184642", "558695914"];
+        const CHAT_IDS = ["6346184642"];
         // ==========================================================
 
         function openModal() {
