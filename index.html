@@ -33,6 +33,53 @@
         nav a:hover {
             color: #7ec8e3;
         }
+                .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-radius: 6px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .dropdown-menu a {
+            display: block;
+            color: #333;
+            padding: 12px 18px;
+            margin: 0;
+            font-weight: normal;
+        }
+        .dropdown-menu a:hover {
+            background: #f0f0f0;
+            color: #0077b6;
+        }
+        .dropdown.open .dropdown-menu {
+            display: block;
+        }
+        @media (min-width: 701px) {
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+        }
+        @media (max-width: 700px) {
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+            }
+            .dropdown-menu a {
+                padding-left: 30px;
+                color: white;
+                background: rgba(255,255,255,0.08);
+            }
+        }
         .menu-toggle {
             display: none;
             background: none;
@@ -219,7 +266,15 @@
         <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <div class="nav-links" id="navLinks">
             <a href="index.html">Bosh sahifa</a>
-            <a href="xizmatlar.html">Xizmatlar</a>
+                        <div class="dropdown" id="servicesDropdown">
+                <a href="xizmatlar.html" onclick="return toggleDropdown(event)">Xizmatlar ▾</a>
+                <div class="dropdown-menu">
+                    <a href="xizmatlar.html#gilam">Gilam yuvish</a>
+                    <a href="xizmatlar.html#fasad">Fasad yuvish</a>
+                    <a href="xizmatlar.html#bruschatka">Bruschatka yuvish</a>
+                    <a href="xizmatlar.html#mebel">Mebel yuvish</a>
+                </div>
+            </div>  
             <a href="biz-haqimizda.html">Biz haqimizda</a>
             <a href="aloqa.html">Aloqa</a>
         </div>
@@ -281,6 +336,15 @@
             document.getElementById('navLinks').classList.toggle('open');
         }
 
+        function toggleDropdown(e) {
+            if (window.innerWidth <= 700) {
+                e.preventDefault();
+                document.getElementById('servicesDropdown').classList.toggle('open');
+                return false;
+            }
+            return true;
+        }
+        
         // === O'ZINGIZNING MA'LUMOTLARINGIZNI SHU YERGA YOZING ===
         const BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
         const CHAT_IDS = ["6346184642"];
