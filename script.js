@@ -6,7 +6,7 @@ const TELEGRAM_BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
 // Guruh ID'lari odatda manfiy son bo'ladi (masalan -1001234567890).
 const TELEGRAM_CHAT_IDS = [
   "6346184642",
-  "558695914",
+  "4459345647",
   "5546399052"
 ];
 // ===================================
