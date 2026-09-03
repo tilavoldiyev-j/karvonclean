@@ -6,7 +6,8 @@ const TELEGRAM_BOT_TOKEN = "8867305064:AAFNlTUi2sKW4f8qyHnWyM3jIhU1sw8QGks";
 // Guruh ID'lari odatda manfiy son bo'ladi (masalan -1001234567890).
 const TELEGRAM_CHAT_IDS = [
   "6346184642",
-  "-1004459345647",
+  "558695914",
+  "-1004459345647"
 ];
 // ===================================
 
@@ -29,19 +30,39 @@ document.getElementById('modalOverlay').addEventListener('click', (e) => {
   if(e.target.id === 'modalOverlay') closeModal();
 });
 
+// Telefon raqamni "XX XXX XX XX" ko'rinishida avtomatik formatlaydi (+998 alohida ko'rinadi)
+const phoneInputEl = document.getElementById('phoneInput');
+phoneInputEl.addEventListener('input', () => {
+  let digits = phoneInputEl.value.replace(/\D/g, '').slice(0, 9);
+  const groups = [digits.slice(0,2), digits.slice(2,5), digits.slice(5,7), digits.slice(7,9)];
+  phoneInputEl.value = groups.filter(g => g.length > 0).join(' ');
+});
+
+function getFullPhone(){
+  const digits = phoneInputEl.value.replace(/\D/g, '');
+  return '+998 ' + phoneInputEl.value.trim();
+}
+
+function formatDateTimeUz(){
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 function submitOrder(){
   const name = document.getElementById('nameInput').value.trim();
-  const phone = document.getElementById('phoneInput').value.trim();
-  if(!name || !phone){
-    alert('Iltimos, ism va telefon raqamingizni kiriting.');
+  const phoneDigits = phoneInputEl.value.replace(/\D/g, '');
+  if(!name || phoneDigits.length < 9){
+    alert('Iltimos, ism va to\'liq telefon raqamingizni kiriting (9 ta raqam).');
     return;
   }
+  const phone = getFullPhone();
 
   const submitBtn = document.querySelector('#formState .btn-primary');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Yuborilmoqda...';
 
-  const text = `🧼 *Yangi buyurtma — Aqua Gilam*\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}`;
+  const text = `🧼 *Yangi buyurtma — Karvonclean*\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}\n🕐 Vaqt: ${formatDateTimeUz()}`;
 
   const sendPromises = TELEGRAM_CHAT_IDS.map(chatId =>
     fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -53,20 +74,27 @@ function submitOrder(){
         parse_mode: 'Markdown'
       })
     })
+      .then(res => res.json())
+      .then(data => ({ chatId, ...data }))
+      .catch(() => ({ chatId, ok: false, description: 'Tarmoq xatosi' }))
   );
 
-  Promise.all(sendPromises)
-    .then(() => {
+  Promise.all(sendPromises).then(results => {
+    const failed = results.filter(r => !r.ok);
+
+    if(failed.length){
+      console.error('Telegramga yuborilmadi:', failed);
+      const details = failed.map(f => `• ${f.chatId}: ${f.description || 'noma\'lum xato'}`).join('\n');
+      alert('Ba\'zi chatlarga xabar yetib bormadi:\n\n' + details + '\n\nBrauzer konsolida (F12) batafsilroq ko\'ring.');
+    }
+
+    if(results.some(r => r.ok)){
       document.getElementById('formState').style.display = 'none';
       document.getElementById('successState').classList.add('show');
       document.getElementById('successName').textContent = ', ' + name;
-    })
-    .catch(err => {
-      console.error('Telegram xabar yuborishda xatolik:', err);
-      alert('Xabar yuborilmadi. Internet aloqasini tekshiring yoki BOT_TOKEN/CHAT_ID to\'g\'riligiga ishonch hosil qiling.');
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Yuborish';
-    });
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Yuborish';
+  });
 }

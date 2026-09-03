@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
-  --navy:#0B3B4A;
-  --deep:#082029;
-  --aqua:#2FD3D9;
-  --aqua-soft:#8FE9EC;
+  --navy:#0B4F8A;
+  --deep:#062038;
+  --aqua:#22C1F0;
+  --aqua-soft:#8FE0FB;
   --white:#FFFFFF;
-  --ice:#EFF8F9;
-  --ink:#0A2530;
-  --silver:#AFC7CC;
+  --ice:#EEF7FC;
+  --ink:#0A2538;
+  --silver:#AFC9D9;
   --line:rgba(255,255,255,0.14);
 }
 
@@ -286,6 +286,20 @@ footer{
   font-family:'Inter';
 }
 .field input:focus{border-color:var(--aqua); outline:none;}
+
+.phone-field{
+  display:flex; align-items:center; border:1.5px solid #DCE7E9; border-radius:6px;
+  transition:border-color .2s; overflow:hidden;
+}
+.phone-field:focus-within{border-color:var(--aqua);}
+.phone-prefix{
+  padding:13px 4px 13px 16px; font-size:0.98rem; color:var(--ink); font-weight:600;
+  background:var(--ice); border-right:1.5px solid #DCE7E9; user-select:none;
+}
+.phone-field input{
+  border:none; padding:13px 16px 13px 10px; flex:1; font-size:0.98rem; font-family:'Inter';
+}
+.phone-field input:focus{outline:none;}
 .modal .btn-primary.dark{width:100%; justify-content:center; margin-top:8px;}
 
 .success-state{display:none; text-align:center; padding:14px 0;}

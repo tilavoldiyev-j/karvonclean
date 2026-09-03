@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AQUA GILAM — Gilam yuvish fabrikasi</title>
+<title>Karvonclean — Gilam yuvish fabrikasi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="nav" id="nav">
-  <div class="logo"><span class="logo-mark"></span>Aqua Gilam</div>
+  <div class="logo"><span class="logo-mark"></span>Karvonclean</div>
   <ul class="nav-links">
     <li><a href="#services">Xizmatlar</a></li>
     <li><a href="#why">Nega biz</a></li>
@@ -34,16 +34,16 @@
   <div class="hero-overlay"></div>
   <div class="container hero-content">
     <div class="eyebrow-line"><span class="dash"></span>Gilam yuvish fabrikasi</div>
-    <h1>Gilamingiz <em>zavod sifatida</em> toza bo'lib qaytadi</h1>
+    <h1>Gilamingiz <em>zavod holatida</em> toza bo'lib qaytadi</h1>
     <p class="lede">Chuqur yuvish, dog' ketkazish va quritish — zamonaviy uskunalar bilan, uyingizdan chiqmasdan buyurtma bering.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="openModal()">Buyurtma berish →</button>
       <a class="btn-ghost" href="tel:+998880101011">Bog'lanish</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><b>12 yil</b><span>bozordagi tajriba</span></div>
-      <div class="stat"><b>40,000+</b><span>yuvilgan gilamlar</span></div>
-      <div class="stat"><b>24 soat</b><span>ichida tayyor</span></div>
+      <div class="stat"><b>3 yil</b><span>bozordagi tajriba</span></div>
+      <div class="stat"><b>500+</b><span>yuvilgan gilamlar</span></div>
+      <div class="stat"><b>48 soat</b><span>ichida tayyor</span></div>
     </div>
   </div>
 </section>
@@ -83,7 +83,7 @@
 <section class="section why" id="why">
   <div class="container why-grid">
     <div>
-      <div class="section-tag"><span class="dash"></span>Nega Aqua Gilam</div>
+      <div class="section-tag"><span class="dash"></span>Nega Karvonclean</div>
       <h2 style="margin-bottom:40px;">Har bir gilamга fabrika aniqligi bilan yondashamiz</h2>
       <ul class="why-list">
         <li>
@@ -131,7 +131,7 @@
     <p>Buyurtma qoldiring — 15 daqiqa ichida siz bilan bog'lanamiz, yoki to'g'ridan-to'g'ri qo'ng'iroq qiling.</p>
     <div class="contact-actions">
       <button class="btn-primary dark" onclick="openModal()">Buyurtma berish</button>
-      <a class="btn-outline" href="tel:+998901234567">📞 +998 88 010 10 11</a>
+      <a class="btn-outline" href="tel:+998880101011">📞 +998 88 010 10 11</a>
     </div>
   </div>
 </section>
@@ -139,18 +139,18 @@
 <footer>
   <div class="container">
     <div class="footer-top">
-      <div class="footer-logo"><span class="logo-mark"></span>Aqua Gilam</div>
+      <div class="footer-logo"><span class="logo-mark"></span>Karvonclean</div>
       <div class="footer-social">
-        <a class="social-btn" href="#" aria-label="Instagram" onclick="return false;">
+        <a class="social-btn" href="https://instagram.com/karvonclean" target="_blank" rel="noopener" aria-label="Instagram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
         </a>
-        <a class="social-btn" href="#" aria-label="Telegram" onclick="return false;">
+        <a class="social-btn" href="https://t.me/karvonclean" target="_blank" rel="noopener" aria-label="Telegram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 4L3 11.5L9.5 13.5M21 4L15.5 20L9.5 13.5M21 4L9.5 13.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
         </a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Aqua Gilam. Barcha huquqlar himoyalangan.</span>
+      <span>© 2026 Karvonclean. Barcha huquqlar himoyalangan.</span>
       <span>Toshkent shahri</span>
     </div>
   </div>
@@ -168,14 +168,17 @@
       </div>
       <div class="field">
         <label for="phoneInput">Telefon raqamingiz</label>
-        <input id="phoneInput" type="tel" placeholder="+998 88 010 10 11">
+        <div class="phone-field">
+          <span class="phone-prefix">+998</span>
+          <input id="phoneInput" type="tel" inputmode="numeric" placeholder="90 123 45 67" maxlength="12">
+        </div>
       </div>
       <button class="btn-primary dark" onclick="submitOrder()">Yuborish</button>
     </div>
     <div class="success-state" id="successState">
       <div class="success-icon">✓</div>
       <h3>So'rovingiz qabul qilindi</h3>
-      <p>Rahmat<span id="successName"></span>! Ma'lumotlaringiz Telegram orqali adminlarimizga va guruhimizga yuborildi. Tez orada siz bilan bog'lanamiz.</p>
+      <p>Rahmat<span id="successName"></span>! Ma'lumotlaringiz operatorlarimizga muvaffaqiyatli yuborildi. Tez orada siz bilan bog'lanamiz.</p>
     </div>
   </div>
 </div>
